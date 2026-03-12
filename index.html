@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANFA Profesyonel Arşiv</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/dexie/dist/dexie.js"></script>
+</head>
+<body class="dark-mode">
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>ANFA Menü</h3>
+            <button onclick="toggleMenu()" class="close-btn">&times;</button>
+        </div>
+        <nav>
+            <a href="#" onclick="kategoriSec('Park_Faaliyet')"><i class="fas fa-tree"></i> Park Faaliyet</a>
+            <a href="#" onclick="kategoriSec('Personel')"><i class="fas fa-users"></i> Personel</a>
+            <a href="#" onclick="kategoriSec('Giden_Evrak')"><i class="fas fa-file-export"></i> Giden Evrak</a>
+            <a href="#" onclick="kategoriSec('Gelen_Evrak')"><i class="fas fa-file-import"></i> Gelen Evrak</a>
+            <a href="#" onclick="kategoriSec('Notlar')"><i class="fas fa-sticky-note"></i> Notlar</a>
+        </nav>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <button class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+            <h2 id="baslik">Park Faaliyet</h2>
+            <div class="search-bar">
+                <input type="text" id="aramaKutusu" placeholder="Ara..." oninput="listele()">
+            </div>
+        </header>
+        <main id="liste"></main>
+        <button id="fab" onclick="formAc()">+</button>
+    </div>
+
+    <div id="formModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Yeni Kayıt</h3>
+                <button onclick="formKapat()" class="close-btn">&times;</button>
+            </div>
+            <div class="form-body">
+                <label>Tarih</label>
+                <input type="date" id="tarih">
+                
+                <div id="personelOzel" class="hidden">
+                    <input type="text" id="pAd" placeholder="Adı Soyadı">
+                </div>
+
+                <label>Açıklama</label>
+                <textarea id="aciklama" placeholder="Detayları yazın..."></textarea>
+                
+                <label>Resimler (Max 4)</label>
+                <input type="file" id="resimler" multiple accept="image/*" onchange="resimHazirla()">
+                <div id="onizleme" class="grid"></div>
+                
+                <button class="btn-save" onclick="kaydet()">KAYDET</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="detayModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="detayBaslik"></h3>
+                <button onclick="detayKapat()" class="close-btn">&times;</button>
+            </div>
+            <div id="detayIcerik"></div>
+            <div id="detayResimler" class="grid"></div>
+            <button class="btn-delete" onclick="kayitSil()">KAYDI SİL</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
